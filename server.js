@@ -51,8 +51,33 @@ http.createServer((req, res, err) => {
             //     // console.log("DataObj: ", dataObj.hfSub);
             // });
 
-        res.write("This is my node server response!"); // response will be sent back to the client (browser/postman)
-        res.end();
+        // res.write("This is my node server response!"); // response will be sent back to the client (browser/postman)
+        // res.end();
+
+        console.log(req.method);
+
+        switch(req.url) {
+            case "/showAllTrainees": 
+                traineeModule.showAllTrainees(req, res);
+                break;
+            case "/showTrainee":
+                traineeModule.showTrainee(req, res);
+                break;
+            case "/addTrainee":
+                traineeModule.addTrainee(req, res);
+                break;
+            case "/updateTrainee":
+                res.write("This is for Updating existing Trainee");
+                res.end();
+                break;
+            case "/deleteTrainee":
+                res.write("This is for Deleting existing Trainee");
+                res.end();
+                break;
+            default:
+                res.write("Invalid Route!");
+                res.end();
+        }
     }
 }).listen(port, () => {
     console.log(`Server is running on port ${port}`);
