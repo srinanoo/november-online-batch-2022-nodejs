@@ -14,28 +14,59 @@ app.use(express.urlencoded({extended: false})); // querystring library (internal
 // to retrieve data from client using form/req body (JSON)
 app.use(express.json());
 
-// Route Modules
-const traineeModule = require('./traineeModule');
-// Routes (RESTful routes)
-app.get("/showAllTrainees", (req, res) => {
-    res.send("Show All Trainees");
-});
+// // Routes for retrieving data from querystring / form data / json
+// app.get("/getMethod", (req, res) => {
+//     res.send(req.query); // querystring
+// });
 
-app.get("/showTrainee", (req, res) => {
-    res.send("Show Specific Trainee");
-});
+// app.post("/postMethod", (req, res) => {
+//     res.send(req.body); // form body
+// });
 
-app.post("/addTrainee", (req, res) => {
-    res.send("Add Trainee");
-});
+// app.post("/jsonMethod", (req, res) => {
+//     res.send(req.body); // form body in json
+// });
 
-app.put("/updateTrainee", (req, res) => {
-    res.send("Update Trainee");
-});
+// // Route for query params
+// app.get("/queryParams/:id", (req, res) => {
+//     res.send(req.params.id); // url query params
+// });
 
-app.delete("/deleteTrainee", (req, res) => {
-    res.send("Delete Trainee");
-});
+// // Routes (RESTful routes) http://localhost:5000/showAllTrainees
+// app.get("/showAllTrainees", (req, res) => {
+//     res.send("Show All Trainees");
+// });
+
+// http://localhost:5000/showTrainee
+// app.get("/showTrainee", (req, res) => {
+//     res.send("Show Specific Trainee");
+// });
+
+// http://localhost:5000/addTrainee
+// app.post("/addTrainee", (req, res) => {
+//     res.send("Add Trainee");
+// });
+
+// http://localhost:5000/updateTrainee
+// app.put("/updateTrainee", (req, res) => {
+//     res.send("Update Trainee");
+// });
+
+// http://localhost:5000/deleteTrainee
+// app.delete("/deleteTrainee", (req, res) => {
+//     res.send("Delete Trainee");
+// });
+
+// Routes (Thread Pool)
+// http://localhost:5000/trainees/
+const TraineesRoute = require('./routes/traineeRoutes');
+app.use("/trainees", TraineesRoute);
+
+const BatchRoute = require('./routes/batchRoutes');
+app.use("/batches", BatchRoute);
+
+const ClassesRoute = require('./routes/classRoutes');
+app.use("/classes", ClassesRoute);
 
 // Default Unhandled Request
 app.use("/*", (req, res) => {
